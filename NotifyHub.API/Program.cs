@@ -10,6 +10,14 @@ using System.Text;
 using System.Threading.Channels;
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpsRedirection(options =>
+    {
+        options.HttpsPort = null;
+    });
+}
 // Controllers
 builder.Services.AddControllers();
 // Infrastructure (Dapper, Redis, UnitOfWork, Services)
@@ -63,7 +71,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Angular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200", "http://localhost")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
