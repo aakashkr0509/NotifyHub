@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="NotifyHub.API/NotifyHub.API.csproj" Id="51f3f0d8-b8c5-4112-b4b4-e49f9f0dd20e" />
+  <Project Path="NotifyHub.Application/NotifyHub.Application.csproj" Id="7bfb455f-128d-4fb4-a741-9c79f4995a8e" />
+  <Project Path="NotifyHub.Domain/NotifyHub.Domain.csproj" Id="315be954-06b2-4c0f-976f-0275201b6918" />
+  <Project Path="NotifyHub.Infrastructure/NotifyHub.Infrastructure.csproj" Id="06452158-8e15-4416-9a6a-be956a18008a" />
+</Solution>

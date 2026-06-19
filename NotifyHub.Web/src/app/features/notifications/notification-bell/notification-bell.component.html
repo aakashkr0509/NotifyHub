@@ -1,0 +1,69 @@
+<div class="topbar">
+  <span class="brand">NotifyHub</span>
+  <span class="user-email">
+    {{ authService.getEmail() }}
+  </span>
+
+  <div class="bell-wrapper">
+    <button class="bell-btn" (click)="togglePanel()">
+      🔔
+      <span class="badge" *ngIf="(unreadCount$ | async) ?? 0 as count">
+        {{ count }}
+      </span>
+    </button>
+
+    <div class="notification-panel" *ngIf="panelOpen">
+      <div class="panel-header">
+        <span>Notifications</span>
+        <button (click)="markAllRead()">Mark all read</button>
+      </div>
+
+      <ng-container *ngIf="notifications$ | async as notifications">
+        <div class="empty" *ngIf="notifications.length === 0">No notifications yet.</div>
+
+        <div
+          class="notification-item"
+          *ngFor="let n of notifications"
+          [class.unread]="n.status === 'Unread'"
+        >
+          <strong>{{ n.title }}</strong>
+          <p>{{ n.body }}</p>
+          <small>{{ n.createdAt | date: 'short' }}</small>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>
+
+<div class="dashboard">
+  <div class="welcome-card">
+    <h1>Welcome back 👋</h1>
+    <p>
+      Your real-time notifications are active. Any new notification will appear instantly in the
+      bell above.
+    </p>
+  </div>
+
+  <div class="stats-row" *ngIf="notifications$ | async as notifications">
+    <div class="stat-card">
+      <div class="stat-num">
+        {{ notifications.length }}
+      </div>
+      <div class="stat-label">Total</div>
+    </div>
+    <div class="stat-card unread">
+      <div class="stat-num">
+        {{ (unreadCount$ | async) ?? 0 }}
+      </div>
+      <div class="stat-label">Unread</div>
+    </div>
+    <div class="stat-card read">
+      <div class="stat-num">
+        {{ notifications.length - ((unreadCount$ | async) ?? 0) }}
+      </div>
+      <div class="stat-label">Read</div>
+    </div>
+  </div>
+</div>
